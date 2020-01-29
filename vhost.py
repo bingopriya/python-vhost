@@ -1,7 +1,27 @@
 from jinja2 import Environment, FileSystemLoader
 import os
 import subprocess
+import sys
+
+def check_username ( name ):
+    '''
+    If user exists it will return true
+    '''
+    
+    readpasswd=open("/etc/passwd","r")
+    for i in readpasswd:
+        user=i.split(":")[0]
+        if(user ==  name):
+            return True
+    return False
+
+
 Username = raw_input("Enter your username :")
+if check_username(Username)==True:
+    print("Username already exists")
+    sys.exit()
+else:
+    print("Username available")
 Website_Name = raw_input("Enter your Website name :")
 Website_Location =raw_input("Enter your Website locaton :")
 doc ="/var/www/html/"+Username
